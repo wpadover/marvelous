@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Thumbnail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @characters.each do |character| %>
+      <tr>
+        <td><%=character.name%></td>
+        <td><%=character.description%></td>
+        <% if character.thumbnail %>
+          <td><%= image_tag "#{character.thumbnail['path']}.#{character.thumbnail['extension']}", size: "150x150"%></td>
+        <% else %>
+          <td>None</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% @current_page = (params[:current_page] || '0').to_i %>
+<% if @current_page > 0 %>
+  <%= link_to "Previous", characters_path(current_page: @current_page - 1) %>
+<% end %>
+<%= link_to "Next", characters_path(current_page: @current_page + 1) %>
